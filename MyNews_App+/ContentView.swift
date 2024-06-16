@@ -11,9 +11,9 @@ struct ContentView: View {
     @StateObject private var newsViewModel = NewsViewModel()
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List(newsViewModel.articles) { article in
-                NavigationLink(destination: DetailsViewControllerWrapper(article: article)) {
+                NavigationLink(destination: DetailsView(article: article)) {
                     NewsCell(article: article)
                 }
             }

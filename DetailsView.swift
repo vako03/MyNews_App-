@@ -39,7 +39,7 @@ struct DetailsView: View {
             Spacer()
         }
         .navigationBarTitleDisplayMode(.inline)
-        .navigationBarTitle(article.title)
+//        .navigationBarTitle(article.title)
     }
 
     func formatDate(_ dateString: String) -> String {
