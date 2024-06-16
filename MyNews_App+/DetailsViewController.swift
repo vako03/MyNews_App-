@@ -11,7 +11,13 @@ class DetailsViewController: UIViewController {
 
     var article: Article?
 
-    private var titleLabel: UILabel = {
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 24)
         label.numberOfLines = 0
@@ -19,7 +25,7 @@ class DetailsViewController: UIViewController {
         return label
     }()
 
-    private var descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         label.numberOfLines = 0
@@ -27,7 +33,7 @@ class DetailsViewController: UIViewController {
         return label
     }()
 
-    private var imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -35,7 +41,7 @@ class DetailsViewController: UIViewController {
         return imageView
     }()
 
-    private var authorLabel: UILabel = {
+    private lazy var authorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.italicSystemFont(ofSize: 14)
         label.textColor = .gray
@@ -43,7 +49,7 @@ class DetailsViewController: UIViewController {
         return label
     }()
 
-    private var dateLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .gray
@@ -61,43 +67,57 @@ class DetailsViewController: UIViewController {
         guard let article = article else { return }
 
         view.backgroundColor = .white
-        title = article.title
+//        title = article.title
 
-        view.addSubview(titleLabel)
-        view.addSubview(descriptionLabel)
-        view.addSubview(imageView)
-        view.addSubview(authorLabel)
-        view.addSubview(dateLabel)
+        view.addSubview(contentView)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(descriptionLabel)
+        contentView.addSubview(imageView)
+        contentView.addSubview(authorLabel)
+        contentView.addSubview(dateLabel)
 
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            // Constraints for contentView
+            contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
+            // Constraints for titleLabel
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+
+            // Constraints for descriptionLabel
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+
+            // Constraints for imageView
+            imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             imageView.heightAnchor.constraint(equalToConstant: 200),
 
-            titleLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            // Constraints for authorLabel
+            authorLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
+            authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
 
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-
-            authorLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
-            authorLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            authorLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-
+            // Constraints for dateLabel
             dateLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 4),
-            dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            dateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            dateLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16)
+            dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
 
+        // Set content for labels
         titleLabel.text = article.title
         descriptionLabel.text = article.description ?? "No description available."
         authorLabel.text = article.author ?? "Unknown"
         dateLabel.text = formatDate(article.publishedAt)
 
+        // Load image if available
         if let imageUrl = article.urlToImage, let url = URL(string: imageUrl) {
             imageView.load(url: url)
         }
