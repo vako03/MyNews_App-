@@ -8,17 +8,43 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject private var newsViewModel = NewsViewModel()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationView {
+            List(newsViewModel.articles) { article in
+                NavigationLink(destination: DetailsViewControllerWrapper(article: article)) {
+                    NewsCell(article: article)
+                }
+            }
+            .navigationTitle("Top Headlines")
+        }
+        .onAppear {
+            newsViewModel.fetchNews()
+        }
+    }
+}
+
+struct NewsCell: View {
+    let article: Article
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            RemoteImage(urlString: article.urlToImage)
+                .scaledToFit()
+                .frame(height: 200)
+                .cornerRadius(8)
+
+            Text(article.title)
+                .font(.headline)
+                .foregroundColor(.primary)
         }
         .padding()
     }
 }
 
-#Preview {
-    ContentView()
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
