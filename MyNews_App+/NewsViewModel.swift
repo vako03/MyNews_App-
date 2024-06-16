@@ -35,3 +35,4 @@ class NewsViewModel: ObservableObject {
         }.resume()
     }
 }
+

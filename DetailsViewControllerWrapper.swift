@@ -5,6 +5,7 @@
 //  Created by valeri mekhashishvili on 16.06.24.
 //
 import SwiftUI
+import UIKit
 
 struct DetailsViewControllerWrapper: UIViewControllerRepresentable {
     let article: Article
