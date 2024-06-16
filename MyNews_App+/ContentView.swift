@@ -13,11 +13,11 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             List(newsViewModel.articles) { article in
-                NavigationLink(destination: DetailsViewControllerWrapper(article: article)) {
+                NavigationLink(destination: DetailsView(article: article)) {
                     NewsCell(article: article)
                 }
             }
-            .navigationTitle("ყვითელი პრესა")
+            .navigationTitle("Top Headlines")
         }
         .onAppear {
             newsViewModel.fetchNews()
