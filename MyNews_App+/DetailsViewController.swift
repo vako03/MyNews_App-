@@ -11,11 +11,20 @@ class DetailsViewController: UIViewController {
 
     var article: Article?
 
+    private lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .white // Set background color
+        return scrollView
+    }()
+
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white // Set background color
         return view
     }()
+
 
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -58,18 +67,21 @@ class DetailsViewController: UIViewController {
     }()
 
     override func viewDidLoad() {
-        super.viewDidLoad()
+           super.viewDidLoad()
 
-        setupUI()
-    }
+           setupUI()
+       }
 
-    private func setupUI() {
-        guard let article = article else { return }
+       private func setupUI() {
+           guard let article = article else { return }
 
-        view.backgroundColor = .white
-//        title = article.title
+           title = article.title
 
-        view.addSubview(contentView)
+           view.backgroundColor = .white // Set background color
+
+
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         contentView.addSubview(titleLabel)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(imageView)
@@ -77,11 +89,17 @@ class DetailsViewController: UIViewController {
         contentView.addSubview(dateLabel)
 
         NSLayoutConstraint.activate([
+            // Constraints for scrollView
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+
             // Constraints for contentView
-            contentView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
 
             // Constraints for titleLabel
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
@@ -135,4 +153,3 @@ class DetailsViewController: UIViewController {
         }
     }
 }
-

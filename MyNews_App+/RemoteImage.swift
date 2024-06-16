@@ -18,6 +18,8 @@ struct RemoteImage: View {
         } else {
             Color.gray
                 .frame(width: 200, height: 200)
+                .cornerRadius(8)
+                .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 2)
                 .onAppear {
                     if let urlString = urlString, let url = URL(string: urlString) {
                         imageLoader.loadImage(url: url)
@@ -26,6 +28,7 @@ struct RemoteImage: View {
         }
     }
 }
+
 
 class ImageLoader: ObservableObject {
     @Published var image: UIImage? = nil

@@ -4,42 +4,50 @@
 //
 //  Created by valeri mekhashishvili on 16.06.24.
 //
-
 import SwiftUI
 
 struct DetailsView: View {
     let article: Article
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            RemoteImage(urlString: article.urlToImage)
-                .scaledToFit()
-                .cornerRadius(8)
-                .padding()
+        ScrollView {
+            VStack(alignment: .leading, spacing: 16) {
+                RemoteImage(urlString: article.urlToImage)
+                    .scaledToFit()
+                    .cornerRadius(8)
+                    .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 2)
+                    .padding()
 
-            Text(article.title)
-                .font(.title)
-                .bold()
-                .padding(.horizontal)
+                Text(article.title)
+                    .font(.title)
+                    .bold()
+                    .foregroundColor(.primary)
+                    .padding(.horizontal)
 
-            Text(article.description ?? "No description available.")
-                .font(.body)
-                .padding(.horizontal)
+                Text(article.description ?? "No description available.")
+                    .font(.body)
+                    .foregroundColor(.primary)
+                    .padding(.horizontal)
 
-            Text("Author: \(article.author ?? "Unknown")")
-                .font(.subheadline)
-                .foregroundColor(.gray)
-                .padding(.horizontal)
+                Text("Author: \(article.author ?? "Unknown")")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal)
 
-            Text("Published at: \(formatDate(article.publishedAt))")
-                .font(.subheadline)
-                .foregroundColor(.gray)
-                .padding(.horizontal)
+                Text("Published at: \(formatDate(article.publishedAt))")
+                    .font(.subheadline)
+                    .foregroundColor(.gray)
+                    .padding(.horizontal)
 
-            Spacer()
+                Spacer()
+            }
+            .padding()
+            .background(Color.white) // Set background color
+            .cornerRadius(12) // Optionally, round the corners
+            .shadow(radius: 5) // Add shadow
         }
         .navigationBarTitleDisplayMode(.inline)
-//        .navigationBarTitle(article.title)
+        .background(Color.white) // Ensure background color extends beyond scroll view
     }
 
     func formatDate(_ dateString: String) -> String {
@@ -52,18 +60,5 @@ struct DetailsView: View {
         } else {
             return "Date Unknown"
         }
-    }
-}
-
-struct DetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailsView(article: Article(
-            title: "Sample Article",
-            description: "Sample Description",
-            urlToImage: nil,
-            author: "John Doe",
-            publishedAt: "2023-01-01T12:00:00Z",
-            url: "https://sampleurl.com"
-        ))
     }
 }

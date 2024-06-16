@@ -17,7 +17,7 @@ struct ContentView: View {
                     NewsCell(article: article)
                 }
             }
-            .navigationTitle("Top Headlines")
+            .navigationTitle("ყვითელი პრესა")
         }
         .onAppear {
             newsViewModel.fetchNews()
