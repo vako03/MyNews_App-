@@ -5,27 +5,32 @@
 //  Created by valeri mekhashishvili on 16.06.24.
 //
 
+// API-შია თვითონ დეტალების ინფორმაცია არასრულად. კაიხანს ვეწვალე მეთქი რატო არ ჩანს ბოლომდე ტექსტი :დ
+
+// "description": "The World War II mystery of what happened to a Finnish passenger plane after it was shot down over the Baltic Sea by Soviet bombers appears to finally be solved more than eight decades later. The plane was carrying American and French diplomatic couriers in J…",
+
+
 import UIKit
 
 class DetailsViewController: UIViewController {
-
+    
     var article: Article?
-
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .white // Set background color
+        scrollView.backgroundColor = .white 
         return scrollView
     }()
-
+    
     private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white // Set background color
+        view.backgroundColor = .white
         return view
     }()
-
-
+    
+    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 24)
@@ -33,7 +38,7 @@ class DetailsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
@@ -41,7 +46,7 @@ class DetailsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -49,7 +54,7 @@ class DetailsViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
+    
     private lazy var authorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.italicSystemFont(ofSize: 14)
@@ -57,7 +62,7 @@ class DetailsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
@@ -65,21 +70,21 @@ class DetailsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     override func viewDidLoad() {
-           super.viewDidLoad()
-
-           setupUI()
-       }
-
-       private func setupUI() {
-           guard let article = article else { return }
-
-           title = article.title
-
-           view.backgroundColor = .white // Set background color
-
-
+        super.viewDidLoad()
+        
+        setupUI()
+    }
+    
+    private func setupUI() {
+        guard let article = article else { return }
+        
+        title = article.title
+        
+        view.backgroundColor = .white
+        
+        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(titleLabel)
@@ -87,60 +92,51 @@ class DetailsViewController: UIViewController {
         contentView.addSubview(imageView)
         contentView.addSubview(authorLabel)
         contentView.addSubview(dateLabel)
-
+        
         NSLayoutConstraint.activate([
-            // Constraints for scrollView
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-
-            // Constraints for contentView
+            
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-
-            // Constraints for titleLabel
+            
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-
-            // Constraints for descriptionLabel
+            
             descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-
-            // Constraints for imageView
+            
             imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             imageView.heightAnchor.constraint(equalToConstant: 200),
-
-            // Constraints for authorLabel
+            
             authorLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             authorLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-
-            // Constraints for dateLabel
+            
             dateLabel.topAnchor.constraint(equalTo: authorLabel.bottomAnchor, constant: 4),
             dateLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             dateLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             dateLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
-
-        // Set content for labels
+        
         titleLabel.text = article.title
         descriptionLabel.text = article.description ?? "No description available."
         authorLabel.text = article.author ?? "Unknown"
         dateLabel.text = formatDate(article.publishedAt)
-
-        // Load image if available
+        
         if let imageUrl = article.urlToImage, let url = URL(string: imageUrl) {
             imageView.load(url: url)
         }
     }
-
+    
     private func formatDate(_ dateString: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"

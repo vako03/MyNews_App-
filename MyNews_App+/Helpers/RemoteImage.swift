@@ -10,7 +10,7 @@ import SwiftUI
 struct RemoteImage: View {
     @StateObject private var imageLoader = ImageLoader()
     var urlString: String?
-
+    
     var body: some View {
         if let uiImage = imageLoader.image {
             Image(uiImage: uiImage)
@@ -32,7 +32,7 @@ struct RemoteImage: View {
 
 class ImageLoader: ObservableObject {
     @Published var image: UIImage? = nil
-
+    
     func loadImage(url: URL) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
