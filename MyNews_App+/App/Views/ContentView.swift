@@ -6,20 +6,18 @@
 //
 import SwiftUI
 
-import SwiftUI
-
 struct ContentView: View {
     @ObservedObject private var newsViewModel = NewsViewModel()
     @State private var selectedArticle: Article? = nil
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             List(newsViewModel.articles) { article in
                 NavigationLink(destination: DetailsView(article: article)) {
                     NewsCell(article: article)
                 }
             }
-            .navigationTitle("Articles")
+            .navigationTitle("ყვითელი პრესა")
             .onAppear {
                 newsViewModel.fetchNews()
             }
@@ -29,10 +27,6 @@ struct ContentView: View {
         }
     }
 }
-
-
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

@@ -91,7 +91,6 @@ class DetailsViewController: UIViewController {
         contentView.addSubview(authorLabel)
         contentView.addSubview(dateLabel)
         
-        // Apply shadow to contentView
         contentView.layer.cornerRadius = 12
         contentView.layer.shadowColor = UIColor.black.cgColor
         contentView.layer.shadowOpacity = 0.3
@@ -99,7 +98,6 @@ class DetailsViewController: UIViewController {
         contentView.layer.shadowRadius = 5
         contentView.layer.masksToBounds = false
         
-        // Apply rounded corners and shadow to imageView
         imageView.layer.cornerRadius = 12
         imageView.layer.shadowColor = UIColor.black.cgColor
         imageView.layer.shadowOpacity = 0.3
@@ -117,7 +115,7 @@ class DetailsViewController: UIViewController {
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor), // Ensure contentView matches scrollView's width
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor), 
             
             titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -148,15 +146,11 @@ class DetailsViewController: UIViewController {
         dateLabel.text = formatDate(article.publishedAt)
         
         if let imageUrl = article.urlToImage, let url = URL(string: imageUrl) {
-            // Load image with proper content mode and scaling
             imageView.contentMode = .scaleAspectFill
             imageView.clipsToBounds = true
             imageView.load(url: url)
         }
     }
-
-
-
     
     private func setupAccessibility() {
         titleLabel.adjustsFontForContentSizeCategory = true

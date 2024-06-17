@@ -67,8 +67,3 @@ struct DetailsView: View {
     }
 }
 
-struct DetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        DetailsView(article: Article(id: UUID(), title: "Sample Article", description: "Sample description", urlToImage: nil, author: "John Doe", publishedAt: "2023-01-01T12:00:00Z", url: "https://example.com"))
-    }
-}

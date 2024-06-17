@@ -114,7 +114,6 @@
 				1AD297F82C1F23A70043F6C3 /* DetailsViewControllerWrapper.swift */,
 				1AD297F02C1F22DB0043F6C3 /* DetailsViewController.swift */,
 				1AD298212C1FC06F0043F6C3 /* Cell */,
-				1AD2983C2C1FDAE50043F6C3 /* UITableViewWrapper.swift */,
 			);
 			name = Views;
 			path = App/Views;
@@ -124,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				1AD297EC2C1F22C70043F6C3 /* NewsViewModel.swift */,
+				1AD2983C2C1FDAE50043F6C3 /* UITableViewWrapper.swift */,
 			);
 			name = ViewModels;
 			path = "Preview Content/ViewModels";
