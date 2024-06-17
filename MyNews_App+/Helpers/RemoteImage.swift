@@ -29,7 +29,25 @@ struct RemoteImage: View {
     }
 }
 
-
+//struct AsyncImage: View {
+//    @StateObject private var imageLoader = ImageLoader()
+//    var url: URL
+//    
+//    var body: some View {
+//        if let uiImage = imageLoader.image {
+//            Image(uiImage: uiImage)
+//                .resizable()
+//                .scaledToFit()
+//                .frame(height: 200)
+//        } else {
+//            ProgressView()
+//                .frame(height: 200)
+//                .onAppear {
+//                    imageLoader.loadImage(url: url)
+//                }
+//        }
+//    }
+//}
 class ImageLoader: ObservableObject {
     @Published var image: UIImage? = nil
     

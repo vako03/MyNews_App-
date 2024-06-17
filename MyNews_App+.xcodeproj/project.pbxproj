@@ -19,6 +19,7 @@
 		1AD297F72C1F232B0043F6C3 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD297F62C1F232B0043F6C3 /* DetailsView.swift */; };
 		1AD297F92C1F23A70043F6C3 /* DetailsViewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD297F82C1F23A70043F6C3 /* DetailsViewControllerWrapper.swift */; };
 		1AD298252C1FC08B0043F6C3 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD298242C1FC08B0043F6C3 /* NewsCell.swift */; };
+		1AD2983D2C1FDAE50043F6C3 /* UITableViewWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD2983C2C1FDAE50043F6C3 /* UITableViewWrapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		1AD297F62C1F232B0043F6C3 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		1AD297F82C1F23A70043F6C3 /* DetailsViewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewControllerWrapper.swift; sourceTree = "<group>"; };
 		1AD298242C1FC08B0043F6C3 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
+		1AD2983C2C1FDAE50043F6C3 /* UITableViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableViewWrapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				1AD297F82C1F23A70043F6C3 /* DetailsViewControllerWrapper.swift */,
 				1AD297F02C1F22DB0043F6C3 /* DetailsViewController.swift */,
 				1AD298212C1FC06F0043F6C3 /* Cell */,
+				1AD2983C2C1FDAE50043F6C3 /* UITableViewWrapper.swift */,
 			);
 			name = Views;
 			path = App/Views;
@@ -221,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AD297E12C1F22180043F6C3 /* ContentView.swift in Sources */,
+				1AD2983D2C1FDAE50043F6C3 /* UITableViewWrapper.swift in Sources */,
 				1AD297F92C1F23A70043F6C3 /* DetailsViewControllerWrapper.swift in Sources */,
 				1AD297F32C1F22E60043F6C3 /* Extensions.swift in Sources */,
 				1AD297F52C1F22EF0043F6C3 /* RemoteImage.swift in Sources */,

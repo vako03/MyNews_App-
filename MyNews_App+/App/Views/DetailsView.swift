@@ -23,25 +23,25 @@ struct DetailsView: View {
                     .bold()
                     .foregroundColor(.primary)
                     .padding(.horizontal)
-                    .accessibility(label: Text("Title: \(article.title)"))
                 
-                Text(article.description ?? "No description available.")
-                    .font(.body)
-                    .foregroundColor(.primary)
-                    .padding(.horizontal)
-                    .accessibility(label: Text("Description: \(article.description ?? "No description available.")"))
+                if let description = article.description {
+                    Text(description)
+                        .font(.body)
+                        .foregroundColor(.primary)
+                        .padding(.horizontal)
+                }
                 
                 Text("Author: \(article.author ?? "Unknown")")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .padding(.horizontal)
-                    .accessibility(label: Text("Author: \(article.author ?? "Unknown")"))
                 
-                Text("Published at: \(formatDate(article.publishedAt))")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
-                    .padding(.horizontal)
-                    .accessibility(label: Text("Published at: \(formatDate(article.publishedAt))"))
+                if let formattedDate = formatDate(article.publishedAt) {
+                    Text("Published at: \(formattedDate)")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                        .padding(.horizontal)
+                }
                 
                 Spacer()
             }
@@ -54,7 +54,7 @@ struct DetailsView: View {
         .background(Color.white)
     }
     
-    func formatDate(_ dateString: String) -> String {
+    func formatDate(_ dateString: String) -> String? {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         if let date = formatter.date(from: dateString) {
@@ -62,7 +62,13 @@ struct DetailsView: View {
             formatter.timeStyle = .short
             return formatter.string(from: date)
         } else {
-            return "Date Unknown"
+            return nil
         }
+    }
+}
+
+struct DetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        DetailsView(article: Article(id: UUID(), title: "Sample Article", description: "Sample description", urlToImage: nil, author: "John Doe", publishedAt: "2023-01-01T12:00:00Z", url: "https://example.com"))
     }
 }

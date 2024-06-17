@@ -4,26 +4,34 @@
 //
 //  Created by valeri mekhashishvili on 16.06.24.
 //
+import SwiftUI
 
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject private var newsViewModel = NewsViewModel()
+    @ObservedObject private var newsViewModel = NewsViewModel()
+    @State private var selectedArticle: Article? = nil
     
     var body: some View {
         NavigationView {
             List(newsViewModel.articles) { article in
-                NavigationLink(destination: DetailsViewControllerWrapper(article: article)) {
+                NavigationLink(destination: DetailsView(article: article)) {
                     NewsCell(article: article)
                 }
             }
-            .navigationTitle("ყვითელი პრესა")
+            .navigationTitle("Articles")
             .onAppear {
                 newsViewModel.fetchNews()
             }
         }
+        .sheet(item: $selectedArticle) { article in
+            DetailsView(article: article)
+        }
     }
 }
+
+
+
 
 
 struct ContentView_Previews: PreviewProvider {

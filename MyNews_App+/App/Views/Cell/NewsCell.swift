@@ -4,6 +4,7 @@
 //
 //  Created by valeri mekhashishvili on 17.06.24.
 //
+
 import SwiftUI
 
 struct NewsCell: View {
@@ -15,7 +16,7 @@ struct NewsCell: View {
                 .scaledToFit()
                 .frame(height: 200)
                 .cornerRadius(8)
-                .accessibility(hidden: true) 
+                .accessibility(hidden: true)
             
             Text(article.title)
                 .font(.headline)
