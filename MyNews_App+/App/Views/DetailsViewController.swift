@@ -9,7 +9,6 @@
 
 // "description": "The World War II mystery of what happened to a Finnish passenger plane after it was shot down over the Baltic Sea by Soviet bombers appears to finally be solved more than eight decades later. The plane was carrying American and French diplomatic couriers in J…",
 
-
 import UIKit
 
 class DetailsViewController: UIViewController {
@@ -19,7 +18,7 @@ class DetailsViewController: UIViewController {
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.backgroundColor = .white 
+        scrollView.backgroundColor = .white
         return scrollView
     }()
     
@@ -30,10 +29,9 @@ class DetailsViewController: UIViewController {
         return view
     }()
     
-    
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.font = UIFont.preferredFont(forTextStyle: .title1)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -41,7 +39,7 @@ class DetailsViewController: UIViewController {
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -57,7 +55,7 @@ class DetailsViewController: UIViewController {
     
     private lazy var authorLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.italicSystemFont(ofSize: 14)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -65,7 +63,7 @@ class DetailsViewController: UIViewController {
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -75,6 +73,7 @@ class DetailsViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        setupAccessibility()
     }
     
     private func setupUI() {
@@ -84,7 +83,6 @@ class DetailsViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        
         view.addSubview(scrollView)
         scrollView.addSubview(contentView)
         contentView.addSubview(titleLabel)
@@ -92,6 +90,22 @@ class DetailsViewController: UIViewController {
         contentView.addSubview(imageView)
         contentView.addSubview(authorLabel)
         contentView.addSubview(dateLabel)
+        
+        // Apply shadow to contentView
+        contentView.layer.cornerRadius = 12
+        contentView.layer.shadowColor = UIColor.black.cgColor
+        contentView.layer.shadowOpacity = 0.3
+        contentView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        contentView.layer.shadowRadius = 5
+        contentView.layer.masksToBounds = false
+        
+        // Apply rounded corners and shadow to imageView
+        imageView.layer.cornerRadius = 12
+        imageView.layer.shadowColor = UIColor.black.cgColor
+        imageView.layer.shadowOpacity = 0.3
+        imageView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        imageView.layer.shadowRadius = 5
+        imageView.layer.masksToBounds = false
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -103,8 +117,9 @@ class DetailsViewController: UIViewController {
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor), // Ensure contentView matches scrollView's width
             
-            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
@@ -115,7 +130,7 @@ class DetailsViewController: UIViewController {
             imageView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
             imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            imageView.heightAnchor.constraint(equalToConstant: 200),
+            imageView.heightAnchor.constraint(equalToConstant: 200), // Fixed height for imageView
             
             authorLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 8),
             authorLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -133,8 +148,21 @@ class DetailsViewController: UIViewController {
         dateLabel.text = formatDate(article.publishedAt)
         
         if let imageUrl = article.urlToImage, let url = URL(string: imageUrl) {
+            // Load image with proper content mode and scaling
+            imageView.contentMode = .scaleAspectFill
+            imageView.clipsToBounds = true
             imageView.load(url: url)
         }
+    }
+
+
+
+    
+    private func setupAccessibility() {
+        titleLabel.adjustsFontForContentSizeCategory = true
+        descriptionLabel.adjustsFontForContentSizeCategory = true
+        authorLabel.adjustsFontForContentSizeCategory = true
+        dateLabel.adjustsFontForContentSizeCategory = true
     }
     
     private func formatDate(_ dateString: String) -> String {
@@ -148,4 +176,5 @@ class DetailsViewController: UIViewController {
             return "Date Unknown"
         }
     }
+    
 }

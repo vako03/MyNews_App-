@@ -23,21 +23,25 @@ struct DetailsView: View {
                     .bold()
                     .foregroundColor(.primary)
                     .padding(.horizontal)
+                    .accessibility(label: Text("Title: \(article.title)"))
                 
                 Text(article.description ?? "No description available.")
                     .font(.body)
                     .foregroundColor(.primary)
                     .padding(.horizontal)
+                    .accessibility(label: Text("Description: \(article.description ?? "No description available.")"))
                 
                 Text("Author: \(article.author ?? "Unknown")")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .padding(.horizontal)
+                    .accessibility(label: Text("Author: \(article.author ?? "Unknown")"))
                 
                 Text("Published at: \(formatDate(article.publishedAt))")
                     .font(.subheadline)
                     .foregroundColor(.gray)
                     .padding(.horizontal)
+                    .accessibility(label: Text("Published at: \(formatDate(article.publishedAt))"))
                 
                 Spacer()
             }

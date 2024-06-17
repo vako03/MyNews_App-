@@ -11,16 +11,16 @@ struct ContentView: View {
     @StateObject private var newsViewModel = NewsViewModel()
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             List(newsViewModel.articles) { article in
-                NavigationLink(destination: DetailsView(article: article)) {
+                NavigationLink(destination: DetailsViewControllerWrapper(article: article)) {
                     NewsCell(article: article)
                 }
             }
             .navigationTitle("ყვითელი პრესა")
-        }
-        .onAppear {
-            newsViewModel.fetchNews()
+            .onAppear {
+                newsViewModel.fetchNews()
+            }
         }
     }
 }

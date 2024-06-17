@@ -16,7 +16,9 @@ struct DetailsViewControllerWrapper: UIViewControllerRepresentable {
         let navController = UINavigationController(rootViewController: detailsVC)
         return navController
     }
+    
     func updateUIViewController(_ uiViewController: UINavigationController, context: Context) {
         uiViewController.setNavigationBarHidden(true, animated: true)
     }
 }
+
